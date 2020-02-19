@@ -37,34 +37,3 @@ class TaskForm extends Component {
 }
 
 export default TaskForm;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

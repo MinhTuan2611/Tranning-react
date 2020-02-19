@@ -49,34 +49,3 @@ class TaskControl extends Component {
 }
 
 export default TaskControl;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
