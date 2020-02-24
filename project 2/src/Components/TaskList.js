@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TaskItem from './TaskItem';
 
 class TaskList extends Component {
   render(){
@@ -25,6 +26,7 @@ class TaskList extends Component {
                     </td>
                     <td></td>
                 </tr>
+                <TaskItem/>
             </tbody>
         </table>
     );

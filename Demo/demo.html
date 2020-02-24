@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Demo React</title>
+    <script src="./Library/react.development.js"></script>
+    <script src="./Library/react-dom.development.js"></script>
+    <script src="./Library/babel.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="Demo.css">
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+    const number = 10;
+        class ListSquare extends React.Component {
+            constructor(props) {
+                super(props);
+                this.createRef();
+            }
+            
+            createRef() {
+                for (let i = 1; i <= 10; i++) {
+                    this['ref' + i] = React.createRef();
+                }
+            }
+
+            setColor = (i) => {
+                if (i % 3 == 1) {
+                    this['ref' + (i + 2)].current.style.background = "blue";
+                }
+
+                else {
+                    if (i % 3 == 2)
+                        this['ref' + (i + 2)].current.style.background = "red";
+                    else
+                        this['ref' + (i + 2)].current.style.background = "green";
+                }
+            }
+
+            renderList = () => {
+                let list = []
+                for (let i = 1; i <= number; i++) {
+                    list.push(
+                        <div key={i} ref={this['ref' + i]} className="square" onClick={() => this.setColor(i)}>{i}</div>
+                    )
+                }
+
+                return list;
+            }
+
+            render = () => this.renderList()
+
+        }
+        ReactDOM.render(<ListSquare />, document.getElementById('root')); 
+    </script>
+</body>
+
+</html>
