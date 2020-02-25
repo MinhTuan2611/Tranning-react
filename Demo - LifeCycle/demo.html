@@ -26,23 +26,23 @@
             componentWillReceiveProps(nextProps) {
                 console.log("--------new update----------");
                 console.log("this is Will ReceiveProps");
-                console.log("this props: "+ this.props.factor);
-                
-                console.log("next props: "+ nextProps.factor);
+                console.log("this props: " + this.props.factor);
+
+                console.log("next props: " + nextProps.factor);
             }
             shouldComponentUpdate(nextProps) {
-                const check=(this.props.factor !=nextProps.factor? true:false)
-                console.log("Should component update: "+ check);
+                const check = (this.props.factor != nextProps.factor ? true : false)
+                console.log("Should component update: " + check);
                 return check;
             }
             componentWillUpdate(nextvProp, nextState) {
                 console.log("this is Will Update");
-                console.log("next prop"+nextvProp.factor);
+                console.log("next prop" + nextvProp.factor);
             }
-            componentDidUpdate(prevProps){
+            componentDidUpdate(prevProps) {
                 console.log("Did Update");
-                
-                console.log("prev prop: "+prevProps.factor);
+
+                console.log("prev prop: " + prevProps.factor);
             }
             render() {
                 console.log("Rendering Square");
@@ -52,6 +52,7 @@
                 )
             }
         }
+
         class ListSquare extends React.Component {
             constructor(props) {
                 super(props);
@@ -64,8 +65,7 @@
                     factor: this.refs.factorRef.value
                 })
             }
-           
-            
+
             render() {
                 //console.log("Rendering ListSquare");
                 return (

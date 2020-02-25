@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Demo React</title>
+    <script src="./Library/react.development.js"></script>
+    <script src="./Library/react-dom.development.js"></script>
+    <script src="./Library/babel.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="Demo.css">
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        class Square extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    factor: 1
+                }
+                this.squareRef = React.createRef();
+            }
+
+            onClick = () => {
+                this.props.onChangeFactor(this.props.children);
+            }
+
+            setChangeFactor = (factor) => {
+                this.squareRef.current.style.background = "red";
+                this.setState({
+                    factor: factor,
+                })
+            }
+
+            render() {
+                return (
+                    <div ref={this.squareRef} className="square" onClick={this.onClick}>{this.props.children * this.state.factor}</div >
+                )
+            }
+        }
+
+        class ListSquare extends React.Component {
+            constructor(props) {
+                super(props);
+                this.squareRef1 = React.createRef();
+                this.squareRef2 = React.createRef();
+            }
+
+            onSubmit = () => {
+                [1,2].map(value=>this.onChangeFactor(value))
+            }
+
+            onChangeFactor = (value) => {
+                this['squareRef' + value].current.setChangeFactor(this.refs.factorRef.value);
+            }
+
+            render() {
+                return (
+                    <div>
+                        <div>
+                            <Square ref={this.squareRef1} onChangeFactor={this.onChangeFactor}>1</Square>
+                            <Square ref={this.squareRef2} onChangeFactor={this.onChangeFactor}>2</Square>
+                        </div>
+                        <br />
+                        <br />
+                        <div>
+                            <input ref="factorRef" type="text" />
+                            <span>
+                                <button type="button" onClick={this.onSubmit}>Go</button>
+                            </span>
+                        </div>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<ListSquare />, document.getElementById('root')); 
+    </script>
+</body>
+
+</html>
