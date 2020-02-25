@@ -14,40 +14,43 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        const number = 10;
 
         class ListSquare extends React.Component {
             constructor(props) {
                 super(props);
-                this.state={
-                    factor: 1,
+                this.state = {
+                    factor: 1
                 }
             }
 
-            onSubmit=()=>{
+            onSubmit = () => {
                 this.setState({
-                    factor: this.refs.factorRef.value,
+                    factor: this.refs.factorRef.value
                 })
             }
 
-            render(){
+            getlist=()=> {
                 let list = []
-                for (let i = 1; i <= number; i++) {
+                for (let i = 1; i <= 10; i++) {
                     list.push(
-                        <div key={i} className="square">{i*this.state.factor}</div>
+                        <div key={i} className="square">{i * this.state.factor}</div>
                     )
                 }
+                return list;
+            }
+            
+            render() {
 
-                return(
+                return (
                     <div>
                         <div>
-                            {list}
+                            {this.getlist()}
                         </div>
-                        <br/>
-                        <br/>
-                        <br/>
+                        <br />
+                        <br />
+                        <br />
                         <div>
-                            <input ref="factorRef" type="text"/>
+                            <input ref="factorRef" type="text" />
                             <span>
                                 <button type="button" onClick={this.onSubmit}>Go</button>
                             </span>
