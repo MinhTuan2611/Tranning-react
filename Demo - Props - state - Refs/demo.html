@@ -44,6 +44,7 @@
         class ListSquare extends React.Component {
             constructor(props) {
                 super(props);
+                this.inputRef = React.createRef();
                 this.squareRef1 = React.createRef();
                 this.squareRef2 = React.createRef();
             }
@@ -53,7 +54,7 @@
             }
 
             onChangeFactor = (value) => {
-                this['squareRef' + value].current.setChangeFactor(this.refs.factorRef.value);
+                this['squareRef' + value].current.setChangeFactor(this.inputRef.current.value);
             }
 
             render() {
@@ -66,7 +67,7 @@
                         <br />
                         <br />
                         <div>
-                            <input ref="factorRef" type="text" />
+                            <input ref={this.inputRef} type="text" />
                             <span>
                                 <button type="button" onClick={this.onSubmit}>Go</button>
                             </span>
