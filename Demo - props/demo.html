@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Demo React</title>
+    <script src="./Library/react.development.js"></script>
+    <script src="./Library/react-dom.development.js"></script>
+    <script src="./Library/babel.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="Demo.css">
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        class Square extends React.Component {
+
+            componentWillMount() {
+                console.log("component will mount Square");
+            }
+
+            componentDidMount() {
+                console.log("component did mount Square");
+            }
+            componentWillReceiveProps(nextProps) {
+                console.log("--------new update----------");
+                console.log("this is Will ReceiveProps");
+                console.log("this props: "+ this.props.factor);
+                
+                console.log("next props: "+ nextProps.factor);
+            }
+            shouldComponentUpdate(nextProps) {
+                const check=(this.props.factor !=nextProps.factor? true:false)
+                console.log("Should component update: "+ check);
+                return check;
+            }
+            componentWillUpdate(nextvProp, nextState) {
+                console.log("this is Will Update");
+                console.log("next prop"+nextvProp.factor);
+            }
+            componentDidUpdate(prevProps){
+                console.log("Did Update");
+                
+                console.log("prev prop: "+prevProps.factor);
+            }
+            render() {
+                console.log("Rendering Square");
+
+                return (
+                    <div className="square">{this.props.factor}</div>
+                )
+            }
+        }
+        class ListSquare extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    factor: 1
+                }
+            }
+            onSubmit = () => {
+                this.setState({
+                    factor: this.refs.factorRef.value
+                })
+            }
+           
+            
+            render() {
+                //console.log("Rendering ListSquare");
+                return (
+                    <div>
+                        <div>
+                            <Square factor={this.state.factor} />
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <div>
+                            <input ref="factorRef" type="text" />
+                            <span>
+                                <button type="button" onClick={this.onSubmit}>Go</button>
+                            </span>
+                        </div>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<ListSquare />, document.getElementById('root')); 
+    </script>
+</body>
+
+</html>
