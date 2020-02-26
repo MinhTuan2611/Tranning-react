@@ -12,29 +12,6 @@ class App extends Component {
       isDisplayForm: false
     }
   }
-  onGenerateData = () => {
-    const tasks = [
-      {
-        id: this.generateID(),
-        name: 'Hoc Lap Trinh',
-        status: true
-      },
-      {
-        id: this.generateID(),
-        name: 'Di boi',
-        status: true
-      },
-      {
-        id: this.generateID(),
-        name: 'Ngu',
-        status: false
-      }
-    ]
-    this.setState({
-      tasks: tasks
-    });
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-  }
   s4() {
     return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
   }
@@ -55,15 +32,47 @@ class App extends Component {
       isDisplayForm: !this.state.isDisplayForm
     })
   }
-  onSubmitForm = (data) => {
-    const tasks = {
-      id: this.generateID(),
-      name: data.name,
-      status: data.status
-    }
-    console.log(tasks);
-    
+  saveTasks = (tasks) => {
+    this.setState({
+      tasks: tasks
+    });
+    localStorage.setItem('tasks', JSON.stringify(tasks));
   }
+  onSubmitForm = (data) => {
+    let { tasks } = this.state;
+    data.id = this.generateID();
+    tasks.push(data);
+    this.saveTasks(tasks);
+  }
+
+  onUpdateStatus = (id) => {
+    let { tasks } = this.state;
+    const index = this.findIndex(id);
+    if (index !== -1) {
+      tasks[index].status = !tasks[index].status;
+      this.saveTasks(tasks);
+    }
+  }
+  onDelete = (id) => {
+    let { tasks } = this.state;
+    const index = this.findIndex(id);
+    if (index !== -1) {
+      tasks.splice(index,1);
+      this.saveTasks(tasks);
+      this.onToggleForm();
+    }
+  }
+  findIndex = (id) => {
+    const { tasks } = this.state;
+    let result = -1
+    tasks.forEach((task, index) => {
+      if (task.id === id) {
+        result = index;
+      }
+    });
+    return result;
+  }
+
   render() {
     const { tasks, isDisplayForm } = this.state;
     const elmTaskForm = isDisplayForm ? (
@@ -90,17 +99,13 @@ class App extends Component {
               <span className="fa fa-plus text-left mr-5"></span>
               Them cong viec
             </button>
-            <button type="button"
-              className="btn btn-danger ml-5"
-              onClick={this.onGenerateData}
-            >
-              <span className="fa fa-plus text-left mr-5"></span>
-              Genergate Data
-            </button>
             <TaskControl />
             <div className="row mt-15">
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <TaskList tasks={tasks} />
+                <TaskList
+                  tasks={tasks}
+                  onUpdateStatus={this.onUpdateStatus}
+                  onDelete={this.onDelete} />
               </div>
             </div>
           </div>

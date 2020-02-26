@@ -14,7 +14,14 @@
     <div id="root"></div>
 
     <script type="text/babel">
-
+        // function Square(value) {
+        //     return <div key={value.value} className="square">{value.value + value.data}</div>;
+        // }
+        class Square extends React.Component{
+            render(){
+                return <div key={this.props.value} className="square">{this.props.value + this.props.data}</div>;
+            }
+        }
         class ListSquare extends React.Component {
             constructor(props) {
                 super(props);
@@ -24,21 +31,24 @@
             }
 
             onSubmit = () => {
+                console.log(this.refs.factorRef.value);
+                
                 this.setState({
                     factor: this.refs.factorRef.value
                 })
             }
 
-            getlist=()=> {
+
+            getlist = () => {
                 let list = []
                 for (let i = 1; i <= 10; i++) {
                     list.push(
-                        <div key={i} className="square">{i * this.state.factor}</div>
+                        <Square key={i} value={this.state.factor} data={i*2}/>
                     )
                 }
                 return list;
             }
-            
+
             render() {
 
                 return (
