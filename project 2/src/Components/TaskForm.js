@@ -18,8 +18,8 @@ class TaskForm extends Component {
     const name = target.name;
     let value = target.value;
 
-    if (name === "status") {
-      value = target.value === "1" ? true : false;
+    if (name == "status") {
+      value = target.value == "true" ? true : false;
     }
     this.setState({
       [name]: value
@@ -61,8 +61,8 @@ class TaskForm extends Component {
               value={this.state.status}
               onChange={this.onChange}
             >
-              <option value={0}>An</option>
-              <option value={1}>Kich Hoat</option>
+              <option value={false}>An</option>
+              <option value={true}>Kich Hoat</option>
             </select>
             <br />
             <button type="submit" className="btn btn-warning">

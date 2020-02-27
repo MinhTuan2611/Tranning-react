@@ -9,7 +9,8 @@ class App extends Component {
     super(props);
     this.state = {
       tasks: [],
-      isDisplayForm: false
+      isDisplayForm: false,
+      taskEditing: null
     }
   }
   s4() {
@@ -47,32 +48,28 @@ class App extends Component {
 
   onUpdateStatus = (id) => {
     let { tasks } = this.state;
-    const index = this.findIndex(id);
-    if (index !== -1) {
-      tasks[index].status = !tasks[index].status;
-      this.saveTasks(tasks);
-    }
+    const index = tasks.findIndex(x => x.id == id);
+    console.log(index);
+
+    tasks[index].status = !tasks[index].status;
+    this.saveTasks(tasks);
   }
   onDelete = (id) => {
     let { tasks } = this.state;
-    const index = this.findIndex(id);
-    if (index !== -1) {
-      tasks.splice(index,1);
-      this.saveTasks(tasks);
-      this.onToggleForm();
-    }
+    const index = tasks.findIndex(x => x.id == id);
+    tasks.splice(index, 1);
+    this.saveTasks(tasks);
+    this.setState({
+      isDisplayForm: false
+    })
   }
-  findIndex = (id) => {
-    const { tasks } = this.state;
-    let result = -1
-    tasks.forEach((task, index) => {
-      if (task.id === id) {
-        result = index;
-      }
+  onUpdate = (id) => {
+    const taskEditing = this.state.tasks.find(i => i.id == id);
+    this.setState({
+      taskEditing: taskEditing,
+      isDisplayForm: true
     });
-    return result;
   }
-
   render() {
     const { tasks, isDisplayForm } = this.state;
     const elmTaskForm = isDisplayForm ? (
@@ -105,7 +102,9 @@ class App extends Component {
                 <TaskList
                   tasks={tasks}
                   onUpdateStatus={this.onUpdateStatus}
-                  onDelete={this.onDelete} />
+                  onDelete={this.onDelete}
+                  onUpdate={this.onUpdate}
+                />
               </div>
             </div>
           </div>
