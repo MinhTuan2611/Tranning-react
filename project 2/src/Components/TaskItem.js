@@ -4,8 +4,11 @@ class TaskItem extends Component {
   onUpdateStatus = () => {
     this.props.onUpdateStatus(this.props.task.id);
   }
-  onDelete=()=>{
+  onDelete = () => {
     this.props.onDelete(this.props.task.id);
+  }
+  onUpdate=()=>{
+    this.props.onUpdate(this.props.task.id);
   }
   render() {
     const { task, index } = this.props;
@@ -20,7 +23,10 @@ class TaskItem extends Component {
           >{task.status ? 'Kich hoat' : 'An'}</span>
         </td>
         <td className="text-center">
-          <button className="btn btn-warning">
+          <button
+            className="btn btn-warning"
+            onClick={this.onUpdate}
+          >
             <span className="fa fa-pen mr-5"></span>
             Sua
           </button>

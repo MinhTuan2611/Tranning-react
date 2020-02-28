@@ -5,8 +5,11 @@ class TaskList extends Component {
   onUpdateStatus = (id) => {
     this.props.onUpdateStatus(id);
   }
-  onDelete=(id)=>{
+  onDelete = (id) => {
     this.props.onDelete(id);
+  }
+  onUpdate=(id)=>{
+    this.props.onUpdate(id);
   }
   render() {
     const { tasks } = this.props;
@@ -17,6 +20,7 @@ class TaskList extends Component {
         task={task}
         onUpdateStatus={this.onUpdateStatus}
         onDelete={this.onDelete}
+        onUpdate={this.onUpdate}
       />
     });
 
